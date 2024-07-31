@@ -13,6 +13,7 @@ import {
   FaYoutube,
 } from 'react-icons/fa';
 import * as z from 'zod';
+const ReCAPTCHA = require('react-google-recaptcha').default;
 
 import Balls from '../../public/assets/Balls.png';
 import LightLogo from '../../public/assets/88Light.png';
@@ -22,9 +23,11 @@ import Office from '../../public/assets/Office.png';
 import PicturesCarousel from '../../public/assets/PicturesCarousel.jpg';
 import PillImages from '../../public/assets/PillImages.png';
 import PlayStore from '../../public/assets/PlayStore.png';
+import { Spinner } from '../components/ui/Spinner';
 import '../styles/globals.css';
 
 import { ToastProvider } from '@/contexts/ToastContext';
+import { useToast } from '@/hooks/useToast';
 
 const OpenSans = Open_Sans({ subsets: ['latin'] });
 
@@ -37,6 +40,7 @@ const formSchema = z.object({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
+  const { toast } = useToast();
   const [isModalOpen, setModalOpen] = useState(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -44,6 +48,9 @@ export default function App({ Component, pageProps }: AppProps) {
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
   const [modalContent, setModalContent] = useState('');
+  const [canSendEmail, setCanSendEmail] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [captchaVerified, setCaptchaVerified] = useState<string | null>(null);
 
   const openModal = (type: string) => {
     setModalContent(type);
@@ -81,7 +88,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
   const closeModal = () => setModalOpen(false);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const result = formSchema.safeParse({
       name,
       email,
@@ -89,14 +96,61 @@ export default function App({ Component, pageProps }: AppProps) {
       subject,
       message,
     });
+
     if (result.success) {
-      console.log({ name, email, phone, subject, message });
+      setLoading(true);
+      try {
+        const response = await fetch('/api/send-email', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            phone,
+            subject,
+            message,
+            token: captchaVerified,
+          }),
+        });
+
+        const data = await response.json();
+        if (response.status === 200) {
+          setName('');
+          setEmail('');
+          setPhone('');
+          setSubject('');
+          setMessage('');
+        } else {
+          alert(`Failed to send email: ${data.error}`);
+        }
+      } catch (error) {
+        alert('Failed to send email');
+      } finally {
+        setLoading(false);
+      }
     } else {
       result.error.errors.forEach((error) => {
         alert(error.message);
       });
     }
   };
+
+  const handleCaptchaChange = (value: string | null) => {
+    setCaptchaVerified(value);
+  };
+
+  useEffect(() => {
+    const result = formSchema.safeParse({
+      name,
+      email,
+      phone,
+      subject,
+      message,
+    });
+    setCanSendEmail(result.success && captchaVerified !== null);
+  }, [name, email, phone, subject, message, captchaVerified]);
 
   return (
     <>
@@ -410,11 +464,20 @@ export default function App({ Component, pageProps }: AppProps) {
                       onChange={(e) => setMessage(e.target.value)}
                       className="p-2 border border-gray-300 rounded h-24 text-sm sm:text-base"
                     />
+                    <ReCAPTCHA
+                      sitekey="6LeHphwqAAAAAGDHOH_aUz98jRdJfz8sLDi_ry6Q"
+                      onChange={handleCaptchaChange}
+                    />
                     <button
                       onClick={handleSubmit}
-                      className="bg-red-500 text-[#f9f9f9] py-2 px-4 rounded text-sm sm:text-base"
+                      className={`py-2 px-4 rounded text-sm sm:text-base ${
+                        canSendEmail
+                          ? 'bg-red-500 text-[#f9f9f9]'
+                          : 'bg-gray-400 text-gray-700'
+                      } flex items-center justify-center`}
+                      disabled={!canSendEmail || loading}
                     >
-                      Enviar
+                      {loading ? <Spinner /> : 'Enviar'}
                     </button>
                   </div>
                 </div>
