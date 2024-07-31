@@ -218,7 +218,7 @@ export default function App({ Component, pageProps }: AppProps) {
           </div>
           <div className="w-full bg-[#f9f9f9] pb-6">
             <div className="relative w-full sm:w-2/3 h-auto bg-[#f9f9f9] mx-auto p-6 pb-0">
-              <p className="text-center text-base sm:text-xl">
+              <p className="text-center text-lg sm:text-2xl">
                 "<strong>DAMOS GRAÇAS A DEUS</strong> PELO QUE PASSOU{' '}
                 {isSmallerThan850 ? ' ' : <br />}
                 PELO DIA DE HOJE E PELO DIA QUE VIRÁ."
