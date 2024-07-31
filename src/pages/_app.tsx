@@ -18,7 +18,7 @@ import Balls from '../../public/assets/Balls.png';
 import LightLogo from '../../public/assets/88Light.png';
 import AppStore from '../../public/assets/AppStore.png';
 import Devices from '../../public/assets/Devices.png';
-import Office from '../../public/assets/Office.jpg';
+import Office from '../../public/assets/Office.png';
 import PicturesCarousel from '../../public/assets/PicturesCarousel.jpg';
 import PillImages from '../../public/assets/PillImages.png';
 import PlayStore from '../../public/assets/PlayStore.png';
