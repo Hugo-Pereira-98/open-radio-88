@@ -244,7 +244,7 @@ module.exports = {
       screens: {
         '2xs': '320px',
         xs: '375px',
-        sm: '475px',
+        sm: '850px',
         '2xl': '1280px',
         '3xl': '1630px',
         '4xl': '1875px',
