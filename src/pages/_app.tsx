@@ -201,7 +201,7 @@ export default function App({ Component, pageProps }: AppProps) {
                 </a>
               </div>
             </div>
-            <div className="flex items-center justify-center absolute inset-0 sm:relative sm:flex-1 sm:z-0 h-full w-full bg-green-600">
+            <div className="flex items-center justify-center absolute inset-0 sm:relative sm:flex-1 sm:z-0 h-full w-full">
               <div
                 className={`w-auto h-full bg-green-950 ${
                   isSmallerThan850 && 'pt-4'
