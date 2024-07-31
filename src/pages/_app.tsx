@@ -1,7 +1,7 @@
 import { AppProps } from 'next/app';
 import { Open_Sans } from 'next/font/google';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   FaComment,
   FaFacebook,
@@ -49,6 +49,35 @@ export default function App({ Component, pageProps }: AppProps) {
     setModalContent(type);
     setModalOpen(true);
   };
+
+  function useWindowSize() {
+    const [windowSize, setWindowSize] = useState<{
+      width: number | undefined;
+      height: number | undefined;
+    }>({
+      width: undefined,
+      height: undefined,
+    });
+
+    useEffect(() => {
+      function handleResize() {
+        setWindowSize({
+          width: window.innerWidth,
+          height: window.innerHeight,
+        });
+      }
+
+      window.addEventListener('resize', handleResize);
+      handleResize();
+
+      return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    return windowSize;
+  }
+
+  const size = useWindowSize();
+  const isSmallerThan850 = (size.width ?? 0) < 850;
 
   const closeModal = () => setModalOpen(false);
 
@@ -128,7 +157,7 @@ export default function App({ Component, pageProps }: AppProps) {
                       width={200}
                     />
                   </div>
-                  <div className="relative z-10 bg-[#1a171e] bg-opacity-75">
+                  <div className="relative z-10 bg-[#1a171e] bg-opacity-75 rounded-md p-2">
                     <p className="font-bold text-6xl mb-6">
                       A vitória é do
                       <br />
@@ -172,26 +201,32 @@ export default function App({ Component, pageProps }: AppProps) {
                 </a>
               </div>
             </div>
-            <div className="flex items-center justify-center absolute inset-0 sm:relative sm:flex-1 sm:z-0 h-full w-full">
-              <div className="w-auto h-full bg-green-950">
+            <div className="flex items-center justify-center absolute inset-0 sm:relative sm:flex-1 sm:z-0 h-full w-full bg-green-600">
+              <div
+                className={`w-auto h-full bg-green-950 ${
+                  isSmallerThan850 && 'pt-4'
+                }`}
+              >
                 <Image
                   src={PillImages}
                   alt="PillImages"
                   layout="fill"
-                  objectFit="contain"
+                  objectFit={isSmallerThan850 ? 'cover' : 'contain'}
                 />
               </div>
             </div>
           </div>
           <div className="w-full bg-[#f9f9f9] pb-6">
             <div className="relative w-full sm:w-2/3 h-auto bg-[#f9f9f9] mx-auto p-6 pb-0">
-              <p className="text-center text-xl">
-                "<strong>DAMOS GRAÇAS A DEUS</strong> PELO QUE PASSOU <br />
-                PELO DIA DE HOJE E PELO DIA QUE VIRÁ.""
+              <p className="text-center text-base sm:text-xl">
+                "<strong>DAMOS GRAÇAS A DEUS</strong> PELO QUE PASSOU{' '}
+                {isSmallerThan850 ? ' ' : <br />}
+                PELO DIA DE HOJE E PELO DIA QUE VIRÁ."
               </p>
+
               <div className="flex flex-col sm:flex-row h-full relative gap-3 items-center">
                 <div className="flex-1 flex flex-col justify-center p-4">
-                  <p className="text-justify">
+                  <p className="text-justify text-base sm:text-lg">
                     A Rádio 88 FM foi fundada em 1986, em Volta Redonda, porém,
                     a história da emissora começou, de fato, em primeiro de
                     agosto de 1994, quando passou a ser administrada pelo então
@@ -227,13 +262,14 @@ export default function App({ Component, pageProps }: AppProps) {
             />
           </div>
 
-          <div className="relative sm:h-[600px] h-[650px] sm:flex sm:flex-row bg-[#1a171e]">
+          <div className="relative h-auto sm:h-[600px] sm:flex sm:flex-row bg-[#1a171e]">
             <div className="flex flex-col items-center justify-center w-full h-full p-6">
-              <p className="text-center text-[#f9f9f9] text-2xl mb-6">
-                <strong>ABENÇOANDO</strong>, DIA APÓS DIA, <br />
+              <p className="text-center text-[#f9f9f9] text-base sm:text-2xl mb-6">
+                <strong>ABENÇOANDO</strong>, DIA APÓS DIA,{' '}
+                {isSmallerThan850 ? '' : <br />}
                 <strong>CENTENAS DE MILHARES</strong> DE CASAS
               </p>
-              <div className="relative w-full h-[400px] mb-6">
+              <div className="relative w-full h-[200px] sm:h-[400px] mb-6">
                 <Image
                   src={Devices}
                   alt="Devices"
@@ -243,37 +279,47 @@ export default function App({ Component, pageProps }: AppProps) {
                 />
               </div>
               <div className="flex gap-5">
-                <div className="relative w-[120px] h-[40px]">
+                <a
+                  href="https://apps.apple.com/br/app/r%C3%A1dio-88-fm-o-som-do-c%C3%A9u/id1587595590?l=en-GB"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative w-[120px] h-[40px]"
+                >
                   <Image
                     src={AppStore}
                     alt="AppStore"
                     layout="fill"
                     objectFit="contain"
                   />
-                </div>
-                <div className="relative w-[120px] h-[40px]">
+                </a>
+                <a
+                  href="https://play.google.com/store/apps/details?id=com.radio88fm&hl=pt_BR"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative w-[120px] h-[40px]"
+                >
                   <Image
                     src={PlayStore}
                     alt="PlayStore"
                     layout="fill"
                     objectFit="contain"
                   />
-                </div>
+                </a>
               </div>
             </div>
           </div>
 
           <div className="bg-[#f9f9f9] flex flex-col items-center">
-            <p className="pt-4 text-5xl">
+            <p className="pt-4 text-3xl sm:text-5xl">
               <strong>FALE CONOSCO</strong>
             </p>
             <div className="w-full flex flex-col sm:flex-row gap-6 p-4">
               <div className="w-full sm:w-1/3 p-4 border border-gray-300 rounded">
-                <p className="text-lg flex items-center">
-                  <FaSuitcase className="text-red-500 mr-2" />
+                <p className="text-lg sm:text-lg flex items-center">
+                  <FaSuitcase className="text-red-500 mr-2 text-sm sm:text-lg" />
                   <strong>Dep. Comercial</strong>
                 </p>
-                <p className="ml-6 mb-2">
+                <p className="ml-4 sm:ml-6 mb-2 text-sm sm:text-lg">
                   Tel:{' '}
                   <a href="tel:+242433388820" className="hover:text-gray-500">
                     (24) 3338-8820 Ramal - 209
@@ -287,11 +333,11 @@ export default function App({ Component, pageProps }: AppProps) {
                     comercialvpd@gmail.com
                   </a>
                 </p>
-                <p className="text-lg flex items-center mt-4">
-                  <FaComment className="text-red-500 mr-2" />
+                <p className="text-lg sm:text-lg flex items-center mt-4">
+                  <FaComment className="text-red-500 mr-2 text-sm sm:text-lg" />
                   <strong>Atendimento</strong>
                 </p>
-                <p className="ml-6 mb-2">
+                <p className="ml-4 sm:ml-6 mb-2 text-sm sm:text-lg">
                   Tel:{' '}
                   <a href="tel:+242433388820" className="hover:text-gray-500">
                     (24) 3338-8820
@@ -305,11 +351,11 @@ export default function App({ Component, pageProps }: AppProps) {
                     producao88fm@gmail.com
                   </a>
                 </p>
-                <p className="text-lg flex items-center mt-4">
-                  <FaMapMarkerAlt className="text-red-500 mr-2" />
+                <p className="text-lg sm:text-lg flex items-center mt-4">
+                  <FaMapMarkerAlt className="text-red-500 mr-2 text-sm sm:text-lg" />
                   <strong>Rua Moacyr de Paula Lobo, 104</strong>
                 </p>
-                <p className="ml-6">
+                <p className="ml-4 sm:ml-6 text-sm sm:text-lg">
                   <a
                     href="https://maps.google.com/?q=Rua Moacyr de Paula Lobo, 104 Limoeiro - Volta Redonda/RJ"
                     target="_blank"
@@ -322,7 +368,7 @@ export default function App({ Component, pageProps }: AppProps) {
               </div>
 
               <div className="w-full sm:w-2/3">
-                <p className="text-lg mb-4">
+                <p className="text-lg sm:text-lg mb-4">
                   Se você deseja anunciar na Rádio 88FM, preencha o formulário
                   abaixo e aguarde o nosso contato.
                 </p>
@@ -333,21 +379,21 @@ export default function App({ Component, pageProps }: AppProps) {
                       placeholder="Nome*"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      className="p-2 border border-gray-300 rounded"
+                      className="p-2 border border-gray-300 rounded text-sm sm:text-base"
                     />
                     <input
                       type="email"
                       placeholder="Email*"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="p-2 border border-gray-300 rounded"
+                      className="p-2 border border-gray-300 rounded text-sm sm:text-base"
                     />
                     <input
                       type="tel"
                       placeholder="Telefone*"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
-                      className="p-2 border border-gray-300 rounded"
+                      className="p-2 border border-gray-300 rounded text-sm sm:text-base"
                     />
                   </div>
                   <div className="flex flex-col space-y-4 w-full sm:w-1/2">
@@ -356,17 +402,17 @@ export default function App({ Component, pageProps }: AppProps) {
                       placeholder="Assunto*"
                       value={subject}
                       onChange={(e) => setSubject(e.target.value)}
-                      className="p-2 border border-gray-300 rounded"
+                      className="p-2 border border-gray-300 rounded text-sm sm:text-base"
                     />
                     <textarea
                       placeholder="Mensagem*"
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
-                      className="p-2 border border-gray-300 rounded h-24"
+                      className="p-2 border border-gray-300 rounded h-24 text-sm sm:text-base"
                     />
                     <button
                       onClick={handleSubmit}
-                      className="bg-red-500 text-[#f9f9f9] py-2 px-4 rounded"
+                      className="bg-red-500 text-[#f9f9f9] py-2 px-4 rounded text-sm sm:text-base"
                     >
                       Enviar
                     </button>
@@ -376,10 +422,10 @@ export default function App({ Component, pageProps }: AppProps) {
             </div>
           </div>
 
-          <div className="relative h-[180px] sm:flex sm:flex-row bg-[#1a171e] text-[#f9f9f9] flex flex-col items-center justify-center text-center">
+          <div className="relative h-auto sm:h-[180px] sm:flex sm:flex-row bg-[#1a171e] text-[#f9f9f9] flex flex-col items-center justify-center text-center p-4">
             <div className="flex flex-col items-center justify-center">
               <Image src={LightLogo} alt="LightLogo" height={48} />
-              <p className="mt-3">
+              <p className="mt-3 text-sm sm:text-base">
                 <a
                   href="https://maps.google.com/?q=Rua Moacyr de Paula Lobo, 104, Limoeiro - Volta Redonda - RJ"
                   target="_blank"
