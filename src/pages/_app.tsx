@@ -351,20 +351,20 @@ export default function App({ Component, pageProps }: AppProps) {
                     producao88fm@gmail.com
                   </a>
                 </p>
-                <p className="text-lg sm:text-lg flex items-center mt-4">
-                  <FaMapMarkerAlt className="text-red-500 mr-2 text-sm sm:text-lg" />
-                  <strong>Rua Moacyr de Paula Lobo, 104</strong>
-                </p>
-                <p className="ml-4 sm:ml-6 text-sm sm:text-lg">
-                  <a
-                    href="https://maps.google.com/?q=Rua Moacyr de Paula Lobo, 104 Limoeiro - Volta Redonda/RJ"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-gray-500"
-                  >
+                <a
+                  href="https://maps.google.com/?q=Rua Moacyr de Paula Lobo, 104 Limoeiro - Volta Redonda/RJ"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-gray-500"
+                >
+                  <p className="text-lg sm:text-lg flex items-center mt-4">
+                    <FaMapMarkerAlt className="text-red-500 mr-2 text-sm sm:text-lg" />
+                    <strong>Rua Moacyr de Paula Lobo, 104</strong>
+                  </p>
+                  <p className="ml-4 sm:ml-6 text-sm sm:text-lg">
                     Limoeiro - Volta Redonda/RJ
-                  </a>
-                </p>
+                  </p>
+                </a>
               </div>
 
               <div className="w-full sm:w-2/3">
