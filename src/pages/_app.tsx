@@ -1,32 +1,32 @@
 import { AppProps } from 'next/app';
-import { Inter } from 'next/font/google';
+import { Open_Sans } from 'next/font/google';
 import Image from 'next/image';
-import * as z from 'zod';
-import {
-  FaInstagram,
-  FaWhatsapp,
-  FaFacebook,
-  FaYoutube,
-  FaLinkedin,
-  FaSuitcase,
-  FaComment,
-  FaMapMarkerAlt,
-} from 'react-icons/fa';
 import { useState } from 'react';
+import {
+  FaComment,
+  FaFacebook,
+  FaInstagram,
+  FaLinkedin,
+  FaMapMarkerAlt,
+  FaSuitcase,
+  FaWhatsapp,
+  FaYoutube,
+} from 'react-icons/fa';
+import * as z from 'zod';
 
+import Balls from '../../public/assets/Balls.png';
 import LightLogo from '../../public/assets/88Light.png';
-import DarkLogo from '../../public/assets/88Dark.png';
 import AppStore from '../../public/assets/AppStore.png';
-import PlayStore from '../../public/assets/PlayStore.png';
-import PicturesCarousel from '../../public/assets/PicturesCarousel.png';
-import PillImages from '../../public/assets/PillImages.png';
-import Office from '../../public/assets/Office.JPG';
 import Devices from '../../public/assets/Devices.png';
+import Office from '../../public/assets/Office.jpg';
+import PicturesCarousel from '../../public/assets/PicturesCarousel.jpg';
+import PillImages from '../../public/assets/PillImages.png';
+import PlayStore from '../../public/assets/PlayStore.png';
 import '../styles/globals.css';
 
 import { ToastProvider } from '@/contexts/ToastContext';
 
-const inter = Inter({ subsets: ['latin'] });
+const OpenSans = Open_Sans({ subsets: ['latin'] });
 
 const formSchema = z.object({
   name: z.string().min(1, { message: 'Nome é obrigatório' }),
@@ -43,7 +43,13 @@ export default function App({ Component, pageProps }: AppProps) {
   const [phone, setPhone] = useState('');
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
-  const openModal = () => setModalOpen(true);
+  const [modalContent, setModalContent] = useState('');
+
+  const openModal = (type: string) => {
+    setModalContent(type);
+    setModalOpen(true);
+  };
+
   const closeModal = () => setModalOpen(false);
 
   const handleSubmit = () => {
@@ -69,25 +75,33 @@ export default function App({ Component, pageProps }: AppProps) {
         name="viewport"
         content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
       />
-      <main className={`${inter.className} h-screen bg-gray-900 relative`}>
+      <main className={`${OpenSans.className} h-screen bg-[#1a171e] relative`}>
         <ToastProvider>
           <div className="absolute w-full p-4 flex items-center justify-between z-30 bg-black bg-opacity-50">
             <Image src={LightLogo} alt="LightLogo" height={48} />
             <div className="flex space-x-3">
               <FaYoutube
                 className="hover:text-yellow-700 text-yellow-500 h-7 w-7 cursor-pointer"
-                onClick={() => window.open('https://www.youtube.com', '_blank')}
+                onClick={() =>
+                  window.open(
+                    'https://www.youtube.com/@radio88oficial',
+                    '_blank'
+                  )
+                }
               />
               <FaLinkedin
                 className="hover:text-yellow-700 text-yellow-500 h-7 w-7 cursor-pointer"
                 onClick={() =>
-                  window.open('https://www.instagram.com/radio88fm/', '_blank')
+                  window.open(
+                    'https://www.linkedin.com/company/radio-88-fm',
+                    '_blank'
+                  )
                 }
               />
               <FaInstagram
                 className="hover:text-yellow-700 text-yellow-500 h-7 w-7 cursor-pointer"
                 onClick={() =>
-                  window.open('https://www.instagram.com', '_blank')
+                  window.open('https://www.instagram.com/radio88fm/', '_blank')
                 }
               />
               <FaFacebook
@@ -102,36 +116,47 @@ export default function App({ Component, pageProps }: AppProps) {
             </div>
           </div>
           <div className="relative sm:h-[600px] h-[650px] sm:flex sm:flex-row">
-            <div className="absolute inset-0 flex flex-col justify-center items-center bg-gray-900 bg-opacity-70 text-white p-6 z-20 sm:relative sm:flex-1 sm:bg-transparent sm:z-10 h-full">
+            <div className="absolute inset-0 flex flex-col justify-center items-center bg-[#1a171e] bg-opacity-70 text-[#f9f9f9] p-6 z-20 sm:relative sm:flex-1 sm:bg-transparent sm:z-10 h-full">
               <div className="flex flex-col gap-6 h-full justify-center">
-                <div className="text-start">
-                  <p className="font-bold text-6xl mb-6">
-                    A vitória é do
-                    <br />
-                    povo de Deus
-                  </p>
-                  <p className="text-xl">
-                    A rádio que você sempre ouviu,
-                    <br />
-                    agora também pode assistir.
-                  </p>
+                <div className="text-start relative">
+                  <div className="absolute top-[-50px] left-[-50px] z-0 w-[200px]">
+                    <Image
+                      src={Balls}
+                      alt="Balls"
+                      layout="intrinsic"
+                      objectFit="contain"
+                      width={200}
+                    />
+                  </div>
+                  <div className="relative z-10 bg-[#1a171e] bg-opacity-75">
+                    <p className="font-bold text-6xl mb-6">
+                      A vitória é do
+                      <br />
+                      povo de Deus
+                    </p>
+                    <p className="text-xl">
+                      A rádio que você sempre ouviu,
+                      <br />
+                      agora também pode assistir.
+                    </p>
+                  </div>
                 </div>
                 <div className="flex space-x-4 items-start w-full">
                   <button
-                    className="bg-blue-500 text-white py-2 px-4 rounded-4xl w-36"
-                    onClick={openModal}
+                    className="bg-blue-500 text-[#f9f9f9] py-2 px-4 rounded-4xl w-36"
+                    onClick={() => openModal('assistir')}
                   >
                     Assistir
                   </button>
                   <button
-                    className="bg-gray-700 text-white py-2 px-4 rounded-4xl w-36"
-                    onClick={openModal}
+                    className="bg-gray-700 text-[#f9f9f9] py-2 px-4 rounded-4xl w-36"
+                    onClick={() => openModal('ouvir')}
                   >
                     Ouvir
                   </button>
                 </div>
               </div>
-              <div className="flex items-center justify-between gap-2 absolute bottom-0 sm:relative sm:bottom-auto sm:mt-4">
+              <div className="flex items-center justify-between gap-2 absolute bottom-4 sm:relative sm:bottom-auto sm:mt-4">
                 <a
                   href="https://wa.me/5524998680088"
                   target="_blank"
@@ -158,13 +183,13 @@ export default function App({ Component, pageProps }: AppProps) {
               </div>
             </div>
           </div>
-          <div className="w-full bg-white">
-            <div className="relative w-full sm:w-2/3 h-[400px] bg-white mx-auto p-6 pb-0">
+          <div className="w-full bg-[#f9f9f9] pb-6">
+            <div className="relative w-full sm:w-2/3 h-auto bg-[#f9f9f9] mx-auto p-6 pb-0">
               <p className="text-center text-xl">
-                DAMOS GRAÇAS A DEUS PELO QUE PASSOU <br />
-                PELO DIA DE HOJE E PELO DIA QUE VIRÁ.
+                "<strong>DAMOS GRAÇAS A DEUS</strong> PELO QUE PASSOU <br />
+                PELO DIA DE HOJE E PELO DIA QUE VIRÁ.""
               </p>
-              <div className="flex h-full relative gap-3">
+              <div className="flex flex-col sm:flex-row h-full relative gap-3 items-center">
                 <div className="flex-1 flex flex-col justify-center p-4">
                   <p className="text-justify">
                     A Rádio 88 FM foi fundada em 1986, em Volta Redonda, porém,
@@ -178,20 +203,22 @@ export default function App({ Component, pageProps }: AppProps) {
                     responsabilidade social.
                   </p>
                 </div>
-                <div className="relative h-full w-2/5">
-                  <Image
-                    src={Office}
-                    alt="Office"
-                    layout="fill"
-                    objectFit="contain"
-                    className="h-full w-auto"
-                  />
+                <div className="relative w-full sm:w-2/5">
+                  <div className="w-2/3 sm:w-[400px] mx-auto">
+                    <Image
+                      src={Office}
+                      alt="Office"
+                      layout="responsive"
+                      objectFit="contain"
+                      className="w-full"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="w-full bg-pink-950">
+          <div className="w-full">
             <Image
               src={PicturesCarousel}
               alt="PicturesCarousel"
@@ -200,9 +227,9 @@ export default function App({ Component, pageProps }: AppProps) {
             />
           </div>
 
-          <div className="relative sm:h-[600px] h-[650px] sm:flex sm:flex-row bg-gray-900">
+          <div className="relative sm:h-[600px] h-[650px] sm:flex sm:flex-row bg-[#1a171e]">
             <div className="flex flex-col items-center justify-center w-full h-full p-6">
-              <p className="text-center text-white text-2xl mb-6">
+              <p className="text-center text-[#f9f9f9] text-2xl mb-6">
                 <strong>ABENÇOANDO</strong>, DIA APÓS DIA, <br />
                 <strong>CENTENAS DE MILHARES</strong> DE CASAS
               </p>
@@ -236,7 +263,7 @@ export default function App({ Component, pageProps }: AppProps) {
             </div>
           </div>
 
-          <div className="bg-white flex flex-col items-center">
+          <div className="bg-[#f9f9f9] flex flex-col items-center">
             <p className="pt-4 text-5xl">
               <strong>FALE CONOSCO</strong>
             </p>
@@ -248,11 +275,16 @@ export default function App({ Component, pageProps }: AppProps) {
                 </p>
                 <p className="ml-6 mb-2">
                   Tel:{' '}
-                  <a href="tel:+242433388020"> (24) 3338-8020 Ramal - 209</a>
+                  <a href="tel:+242433388820" className="hover:text-gray-500">
+                    (24) 3338-8820 Ramal - 209
+                  </a>
                   <br />
                   Email:{' '}
-                  <a href="mailto:comercial@radio88.com">
-                    comercial@radio88.com
+                  <a
+                    href="mailto:comercialvpd@gmail.com"
+                    className="hover:text-gray-500"
+                  >
+                    comercialvpd@gmail.com
                   </a>
                 </p>
                 <p className="text-lg flex items-center mt-4">
@@ -260,22 +292,31 @@ export default function App({ Component, pageProps }: AppProps) {
                   <strong>Atendimento</strong>
                 </p>
                 <p className="ml-6 mb-2">
-                  Tel: <a href="tel:+242433388020"> (24) 3338-8020</a>
+                  Tel:{' '}
+                  <a href="tel:+242433388820" className="hover:text-gray-500">
+                    (24) 3338-8820
+                  </a>
                   <br />
                   Email:{' '}
-                  <a href="mailto:contato@radio88.com">contato@radio88.com</a>
+                  <a
+                    href="mailto:producao88fm@gmail.com"
+                    className="hover:text-gray-500"
+                  >
+                    producao88fm@gmail.com
+                  </a>
                 </p>
                 <p className="text-lg flex items-center mt-4">
                   <FaMapMarkerAlt className="text-red-500 mr-2" />
-                  <strong>Rua Moacyr de Paula Lobo, 304</strong>
+                  <strong>Rua Moacyr de Paula Lobo, 104</strong>
                 </p>
                 <p className="ml-6">
                   <a
-                    href="https://maps.google.com/?q=Rua Moacyr de Paula Lobo, 304, Limoeira - Volta Redonda - RJ"
+                    href="https://maps.google.com/?q=Rua Moacyr de Paula Lobo, 104 Limoeiro - Volta Redonda/RJ"
                     target="_blank"
                     rel="noopener noreferrer"
+                    className="hover:text-gray-500"
                   >
-                    Limoeira - Volta Redonda - RJ
+                    Limoeiro - Volta Redonda/RJ
                   </a>
                 </p>
               </div>
@@ -325,7 +366,7 @@ export default function App({ Component, pageProps }: AppProps) {
                     />
                     <button
                       onClick={handleSubmit}
-                      className="bg-red-500 text-white py-2 px-4 rounded"
+                      className="bg-red-500 text-[#f9f9f9] py-2 px-4 rounded"
                     >
                       Enviar
                     </button>
@@ -335,20 +376,80 @@ export default function App({ Component, pageProps }: AppProps) {
             </div>
           </div>
 
-          <div className="relative h-[180px] sm:flex sm:flex-row bg-gray-900"></div>
+          <div className="relative h-[180px] sm:flex sm:flex-row bg-[#1a171e] text-[#f9f9f9] flex flex-col items-center justify-center text-center">
+            <div className="flex flex-col items-center justify-center">
+              <Image src={LightLogo} alt="LightLogo" height={48} />
+              <p className="mt-3">
+                <a
+                  href="https://maps.google.com/?q=Rua Moacyr de Paula Lobo, 104, Limoeiro - Volta Redonda - RJ"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-gray-400"
+                >
+                  Rua Moacyr de Paula Lobo, 104 Limoeiro - Volta Redonda/RJ
+                </a>
+                <br />
+                Dep. Comercial:{' '}
+                <a href="tel:+24243388820" className="hover:text-gray-400">
+                  (24) 3338-8820
+                </a>{' '}
+                |{' '}
+                <a
+                  href="mailto:comercialvpd@gmail.com"
+                  className="hover:text-gray-400"
+                >
+                  comercialvpd@gmail.com
+                </a>
+                <br />
+                Atendimento:{' '}
+                <a href="tel:+24243388820" className="hover:text-gray-400">
+                  (24) 3338-8820
+                </a>{' '}
+                /{' '}
+                <a
+                  href="https://wa.me/5524998680088"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-gray-400"
+                >
+                  99868-0088 WhatsApp
+                </a>{' '}
+                |{' '}
+                <a
+                  href="mailto:producao88fm@gmail.com"
+                  className="hover:text-gray-400"
+                >
+                  producao88fm@gmail.com
+                </a>
+                <br />
+              </p>
+            </div>
+          </div>
+
           {isModalOpen && (
             <div
-              className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
+              className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-[999]"
               onClick={closeModal}
             >
               <div
-                className="bg-white p-6 rounded shadow-lg"
+                className="bg-[#f9f9f9] p-6 rounded shadow-lg"
                 onClick={(e) => e.stopPropagation()}
               >
-                <audio
-                  controls
-                  src="https://stm39.srvstm.com:9776/stream"
-                ></audio>
+                {modalContent === 'assistir' ? (
+                  <iframe
+                    style={{ width: '1280px', height: '720px' }}
+                    src="https://playerv.srvstm.com/video/radioenergia4369//true/false/c3RtdjEuc3J2c3RtLmNvbSsw/16:9//nao/nao"
+                    scrolling="no"
+                    frameBorder="0"
+                    allowFullScreen
+                  ></iframe>
+                ) : (
+                  <audio
+                    autoPlay={true}
+                    controls
+                    src="https://stm39.srvstm.com:9776/stream"
+                  ></audio>
+                )}
               </div>
             </div>
           )}

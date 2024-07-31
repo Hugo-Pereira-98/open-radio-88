@@ -6,7 +6,7 @@ export default function Document() {
       <Head>
         <link rel="icon" type="image/svg" href="/assets/favicon.svg" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap"
           rel="stylesheet"
         />
         <link rel="manifest" href="/manifest.json" />
