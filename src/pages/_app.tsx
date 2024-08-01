@@ -20,7 +20,7 @@ import LightLogo from '../../public/assets/88Light.png';
 import AppStore from '../../public/assets/AppStore.png';
 import Devices from '../../public/assets/Devices.png';
 import Office from '../../public/assets/Office.png';
-import PicturesCarousel from '../../public/assets/PicturesCarousel.jpg';
+import PicturesCarousel from '../../public/assets/PicturesCarousel.png';
 import PillImages from '../../public/assets/PillImages.png';
 import PlayStore from '../../public/assets/PlayStore.png';
 import { Spinner } from '../components/ui/Spinner';
@@ -200,7 +200,7 @@ export default function App({ Component, pageProps }: AppProps) {
           </div>
           <div className="relative sm:h-[600px] h-[650px] sm:flex sm:flex-row">
             <div className="absolute inset-0 flex flex-col justify-center items-center bg-[#1a171e] bg-opacity-70 text-[#f9f9f9] p-6 z-20 sm:relative sm:flex-1 sm:bg-transparent sm:z-10 h-full">
-              <div className="flex flex-col gap-6 h-full justify-center">
+              <div className="flex flex-col gap-6 h-full justify-center relative">
                 <div className="text-start relative">
                   <div className="absolute top-[-50px] left-[-50px] z-0 w-[200px]">
                     <Image
@@ -238,21 +238,21 @@ export default function App({ Component, pageProps }: AppProps) {
                     Ouvir
                   </button>
                 </div>
-              </div>
-              <div className="flex items-center justify-between gap-2 absolute bottom-4 sm:relative sm:bottom-auto sm:mt-4">
-                <a
-                  href="https://wa.me/5524998680088"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2"
-                >
-                  <FaWhatsapp className="h-7 w-7 text-green-500" />
-                  <p className="text-lg leading-[22px]">
-                    Envie-nos
-                    <br />
-                    uma mensagem
-                  </p>
-                </a>
+                <div className="flex items-center justify-between gap-2 absolute bottom-0  sm:relative sm:bottom-auto sm:mt-4">
+                  <a
+                    href="https://wa.me/5524998680088"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2"
+                  >
+                    <FaWhatsapp className="h-7 w-7 text-green-500" />
+                    <p className="text-lg leading-[22px]">
+                      Envie-nos
+                      <br />
+                      uma mensagem
+                    </p>
+                  </a>
+                </div>
               </div>
             </div>
             <div className="flex items-center justify-center absolute inset-0 sm:relative sm:flex-1 sm:z-0 h-full w-full">
@@ -317,13 +317,13 @@ export default function App({ Component, pageProps }: AppProps) {
           </div>
 
           <div className="relative h-auto sm:h-[600px] sm:flex sm:flex-row bg-[#1a171e]">
-            <div className="flex flex-col items-center justify-center w-full h-full p-6">
-              <p className="text-center text-[#f9f9f9] text-base sm:text-2xl mb-6">
-                <strong>ABENÇOANDO</strong>, DIA APÓS DIA,{' '}
-                {isSmallerThan850 ? '' : <br />}
-                <strong>CENTENAS DE MILHARES</strong> DE CASAS
+            <div className="flex flex-col items-center justify-between w-full h-full p-10">
+              <p className="text-center text-[#f9f9f9] text-base sm:text-2xl z-[50]">
+                A RÁDIO QUE TRANSMITE
+                <br />
+                <strong>O SOM DO CÉU</strong>
               </p>
-              <div className="relative w-full h-[200px] sm:h-[400px] mb-6">
+              <div className="relative w-full h-[300px] sm:h-[500px] z-[10]">
                 <Image
                   src={Devices}
                   alt="Devices"
@@ -332,12 +332,12 @@ export default function App({ Component, pageProps }: AppProps) {
                   className="h-full w-auto"
                 />
               </div>
-              <div className="flex gap-5">
+              <div className="flex gap-5 z-[50]">
                 <a
                   href="https://apps.apple.com/br/app/r%C3%A1dio-88-fm-o-som-do-c%C3%A9u/id1587595590?l=en-GB"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="relative w-[120px] h-[40px]"
+                  className="relative w-[150px] h-[50px]"
                 >
                   <Image
                     src={AppStore}
@@ -350,7 +350,7 @@ export default function App({ Component, pageProps }: AppProps) {
                   href="https://play.google.com/store/apps/details?id=com.radio88fm&hl=pt_BR"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="relative w-[120px] h-[40px]"
+                  className="relative w-[150px] h-[50px]"
                 >
                   <Image
                     src={PlayStore}
@@ -363,8 +363,8 @@ export default function App({ Component, pageProps }: AppProps) {
             </div>
           </div>
 
-          <div className="bg-[#f9f9f9] flex flex-col items-center">
-            <p className="pt-4 text-3xl sm:text-5xl">
+          <div className="bg-[#f9f9f9] flex flex-col items-center p-10">
+            <p className="mb-2 text-base sm:text-2xl">
               <strong>FALE CONOSCO</strong>
             </p>
             <div className="w-full flex flex-col sm:flex-row gap-6 p-4">
