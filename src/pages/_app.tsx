@@ -212,12 +212,22 @@ export default function App({ Component, pageProps }: AppProps) {
                     />
                   </div>
                   <div className="relative z-10 bg-[#1a171e] bg-opacity-75 rounded-md p-2">
-                    <p className="font-bold text-6xl mb-6">
-                      A vitória é do
-                      <br />
-                      povo de Deus
-                    </p>
-                    <p className="text-xl">
+                    {isSmallerThan850 ? (
+                      <p className="font-bold text-6xl mb-6 leading-tight">
+                        A vitória é
+                        <br />
+                        do povo
+                        <br />
+                        de Deus
+                      </p>
+                    ) : (
+                      <p className="font-bold text-6xl mb-6 leading-tight">
+                        A vitória é do
+                        <br />
+                        povo de Deus
+                      </p>
+                    )}
+                    <p className="text-xl leading-relaxed">
                       A rádio que você sempre ouviu,
                       <br />
                       agora também pode assistir.
